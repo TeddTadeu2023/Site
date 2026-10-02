@@ -1,0 +1,53 @@
+# ==========================================================
+#  Configuração do servidor (Hostinger / Apache / LiteSpeed)
+# ==========================================================
+
+Options -Indexes
+DirectoryIndex index.html index.php
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Força HTTPS (ative o SSL gratuito no hPanel antes de publicar)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Bloqueia arquivos e pastas ocultos (.git, .gitignore...) — o deploy via Git
+  # cria a pasta .git dentro de public_html. Mantém liberado o .well-known (SSL).
+  RewriteRule (^|/)\.(?!well-known/) - [R=404,L]
+
+  # Bloqueia arquivos de documentação e dados que não devem ser públicos
+  RewriteRule \.(md|csv|log|sh|lock)$ - [R=404,L]
+
+  # Sitemap gerado automaticamente a partir de assets/js/posts.js
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+  # Artigos: injeta título e descrição no HTML (prévia correta no LinkedIn/WhatsApp)
+  RewriteRule ^post\.html$ post.php [L,QSA]
+</IfModule>
+
+# ---------- Cabeçalhos de segurança ----------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# ---------- Compressão ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# ---------- Cache ----------
+# HTML, CSS e JS são revalidados a cada visita (resposta 304 quando não mudou),
+# para que novos artigos em posts.js apareçam imediatamente após o deploy.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js|xml|php)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpe?g|gif|webp|svg|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>

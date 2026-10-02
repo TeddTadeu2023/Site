@@ -34,6 +34,28 @@
     );
   }
 
+  // ----- Newsletter (api/inscrever.php na Hostinger) -----
+  const form = document.getElementById("newsletter");
+  if (form) {
+    const msg = document.getElementById("form-msg");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector("button");
+      btn.disabled = true;
+      msg.textContent = "Enviando…";
+      try {
+        const res = await fetch(form.action, { method: "POST", body: new FormData(form) });
+        const data = await res.json();
+        msg.textContent = data.message;
+        if (data.ok) form.reset();
+      } catch (err) {
+        msg.textContent = "Não foi possível enviar agora. Tente novamente mais tarde.";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+
   // ----- Ano no rodapé -----
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
@@ -107,6 +129,20 @@
     document.title = post.title + " | Prof. Tedd Tadeu";
     const desc = document.querySelector('meta[name="description"]');
     if (desc) desc.setAttribute("content", post.excerpt);
+
+    const ld = document.createElement("script");
+    ld.type = "application/ld+json";
+    ld.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.date,
+      inLanguage: "pt-BR",
+      mainEntityOfPage: location.href,
+      author: { "@type": "Person", name: "Tedd Tadeu", url: "https://teddtadeu.com.br/" }
+    });
+    document.head.appendChild(ld);
 
     head.innerHTML = `
       <a href="index.html#blog">← Voltar ao blog</a>

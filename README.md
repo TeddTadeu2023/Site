@@ -1,17 +1,31 @@
 # Blog Prof. Tedd Tadeu
 
-Blog estático (HTML/CSS/JS) com foco em divulgação de material técnico sobre tecnologias Microsoft
-(Azure, Power BI, Power Platform, Copilot) aplicadas à indústria, Lean/Six Sigma e educação técnica.
+Blog sobre tecnologias Microsoft (Azure, Power BI, Power Platform, Copilot) aplicadas à
+indústria, Lean/Six Sigma e educação técnica. Pronto para hospedagem na **Hostinger** com
+deploy automático pelo GitHub — veja **[DEPLOY-HOSTINGER.md](DEPLOY-HOSTINGER.md)**.
 
 ## Estrutura
-- `index.html` — página inicial (hero, blog com busca/filtros, sobre, comunidade MVP, contato)
-- `post.html?id=<id>` — página de artigo
-- `assets/js/posts.js` — **base de artigos**: para publicar, adicione um objeto ao array `POSTS`
-- `assets/js/main.js` — tema claro/escuro, menu mobile, listagem e renderização dos artigos
-- `assets/css/style.css` — estilos (paleta inspirada na Microsoft, responsivo, modo escuro)
+
+```
+index.html            Página inicial (blog, sobre, comunidade MVP, newsletter)
+post.html             Página de artigo (post.html?id=<id>)
+404.html              Página não encontrada
+assets/js/posts.js    ← ARTIGOS: para publicar, adicione um objeto ao array POSTS
+assets/js/main.js     Tema claro/escuro, menu, listagem, artigo, newsletter
+assets/css/style.css  Estilos (responsivo, modo escuro)
+assets/img/           Imagem de compartilhamento (og-image.png)
+.htaccess             Configuração do servidor (HTTPS, segurança, cache)
+post.php              Prévia correta de artigos no LinkedIn/WhatsApp
+sitemap.php           /sitemap.xml automático
+api/inscrever.php     Inscrição na newsletter
+```
 
 ## Rodar localmente
-Abra `index.html` no navegador, ou: `python3 -m http.server` e acesse http://localhost:8000.
 
-## Publicar
-Funciona em GitHub Pages (Settings → Pages → branch), Azure Static Web Apps ou qualquer hospedagem estática.
+```bash
+php -S localhost:8000      # com PHP (newsletter funciona)
+# ou
+python3 -m http.server     # só o conteúdo estático
+```
+
+Também é possível abrir `index.html` direto no navegador.

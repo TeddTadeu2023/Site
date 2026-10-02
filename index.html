@@ -6,10 +6,39 @@
   <title>Prof. Tedd Tadeu | Blog</title>
   <meta name="description" content="Blog do Prof. Tedd Tadeu: tecnologias Microsoft (Azure, Power BI, Power Platform, Copilot) aplicadas à indústria, Lean Manufacturing e educação técnica.">
   <meta name="author" content="Tedd Tadeu">
+  <link rel="canonical" href="https://teddtadeu.com.br/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Prof. Tedd Tadeu">
+  <meta property="og:url" content="https://teddtadeu.com.br/">
   <meta property="og:title" content="Prof. Tedd Tadeu | Tecnologia Microsoft para Indústria e Educação">
   <meta property="og:description" content="Artigos, laboratórios e materiais sobre Azure, Power BI, Power Platform e IA aplicados ao chão de fábrica e à sala de aula.">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><rect width='9' height='9' fill='%23f25022'/><rect x='11' width='9' height='9' fill='%237fba00'/><rect y='11' width='9' height='9' fill='%2300a4ef'/><rect x='11' y='11' width='9' height='9' fill='%23ffb900'/></svg>">
+  <meta property="og:image" content="https://teddtadeu.com.br/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0078d4">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Prof. Tedd Tadeu",
+    "url": "https://teddtadeu.com.br/",
+    "inLanguage": "pt-BR",
+    "description": "Tecnologias Microsoft aplicadas à indústria, Lean Manufacturing e educação técnica.",
+    "author": {
+      "@type": "Person",
+      "name": "Tedd Tadeu",
+      "jobTitle": "Professor e Engenheiro Mecânico",
+      "url": "https://teddtadeu.com.br/",
+      "sameAs": ["https://www.linkedin.com/in/tedd-tadeu/"],
+      "worksFor": [
+        { "@type": "EducationalOrganization", "name": "SENAI-SP" },
+        { "@type": "CollegeOrUniversity", "name": "Centro Universitário Padre Anchieta" }
+      ],
+      "knowsAbout": ["Microsoft Azure", "Power BI", "Power Platform", "Microsoft Copilot", "Lean Manufacturing", "Six Sigma"]
+    }
+  }
+  </script>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -17,7 +46,7 @@
   <header class="site-header">
     <nav class="container nav" aria-label="Principal">
       <a class="brand" href="index.html">
-        <span class="ms-logo" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span class="brand-mark" aria-hidden="true">TT</span>
         Prof. Tedd Tadeu
       </a>
       <ul class="nav-links" id="nav-links">
@@ -165,11 +194,13 @@
             <p>Convites para palestras, workshops em empresas ou parcerias em projetos educacionais? Entre em contato pelo LinkedIn.</p>
           </div>
           <div>
-            <form class="cta-form" id="newsletter">
-              <input type="email" placeholder="seu@email.com" required aria-label="E-mail">
+            <form class="cta-form" id="newsletter" action="api/inscrever.php" method="post">
+              <input type="email" name="email" placeholder="seu@email.com" required maxlength="254" aria-label="E-mail">
+              <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
               <button class="btn" type="submit">Inscrever</button>
             </form>
             <div class="form-msg" id="form-msg" role="status"></div>
+            <p class="form-note">Seu e-mail é usado apenas para enviar novos artigos, conforme a LGPD. Para cancelar, basta pedir pelo LinkedIn.</p>
           </div>
         </div>
       </div>
@@ -181,7 +212,7 @@
       <div class="footer-grid">
         <div>
           <a class="brand" href="index.html">
-            <span class="ms-logo" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+            <span class="brand-mark" aria-hidden="true">TT</span>
             Prof. Tedd Tadeu
           </a>
           <p>Tecnologias Microsoft aplicadas à indústria, à qualidade e à educação técnica.</p>
@@ -210,12 +241,5 @@
 
   <script src="assets/js/posts.js"></script>
   <script src="assets/js/main.js"></script>
-  <script>
-    document.getElementById("newsletter").addEventListener("submit", function (e) {
-      e.preventDefault();
-      this.reset();
-      document.getElementById("form-msg").textContent = "Obrigado! Você receberá as próximas publicações.";
-    });
-  </script>
 </body>
 </html>
